@@ -79,3 +79,6 @@ fos_user:
     registration:
         form:
             type: AppBundle\Form\Type\RegistrationType
+    from_email:
+        address: "pnlinh@dev.com"
+        sender_name: "Demo server"
