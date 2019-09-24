@@ -72,9 +72,9 @@
 
             $table.find('.js-delete-rep-log').on('click', function (e) {
                 e.preventDefault();
-                e.stopPropagation();
 
-                console.log('to to delete');
+                $(e.target).addClass('text-danger');
+                // e.target.className = e.target.className + 'text-danger';
             });
 
             $table.find('tbody tr').on('click', function () {
