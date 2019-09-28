@@ -1,7 +1,7 @@
-// 'use strict';
+'use strict';
 
 (function (window, $) {
-    Window.RepLogApp = {
+    window.RepLogApp = {
         initialize: function ($wrapper) {
             this.$wrapper = $wrapper;
             this.helper = new Helper($wrapper);
