@@ -1,8 +1,10 @@
-(function () {
-    var RepLogApp = {
+// 'use strict';
+
+(function (window, $) {
+    Window.RepLogApp = {
         initialize: function ($wrapper) {
             this.$wrapper = $wrapper;
-            Helper.initialize($wrapper);
+            this.helper = new Helper($wrapper);
 
             this.$wrapper.find('.js-delete-rep-log').on(
                 'click',
@@ -65,19 +67,20 @@
         }
     };
 
-    var Helper = {
-        initialize: function ($wrapper) {
-            this.$wrapper = $wrapper;
-        },
-
-        calculateTotalWeight: function () {
-            var totalWeight = 0;
-
-            this.$wrapper.find('tbody tr').each(function () {
-                totalWeight += $(this).data('weight')
-            });
-
-            return totalWeight;
-        },
+    /**
+     * A "private" object
+     */
+    var Helper = function ($wrapper) {
+        this.$wrapper = $wrapper;
     };
-})();
+
+    Helper.calculateTotalWeight = function () {
+        var totalWeight = 0;
+
+        this.$wrapper.find('tbody tr').each(function () {
+            totalWeight += $(this).data('weight')
+        });
+
+        return totalWeight;
+    };
+})(window, jQuery);
