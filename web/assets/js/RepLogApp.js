@@ -6,6 +6,10 @@
             this.$wrapper = $wrapper;
             this.helper = new Helper($wrapper);
 
+            console.log(
+
+            );
+
             this.$wrapper.find('.js-delete-rep-log').on(
                 'click',
                 this.hanldeRepLogDelete.bind(this)
@@ -16,11 +20,18 @@
                 this.handleRowClick.bind(this)
             );
 
-            console.log(this.helper, Object.keys(this.helper));
-            console.log(Helper, Object.keys(Helper));
+            // console.log(this.helper, Object.keys(this.helper));
+            // console.log(Helper, Object.keys(Helper));
             // var newThis = {cat: 'meow', dog: 'woof'};
             // var boundWhatIsThis = this.whatIsThis.bind(this);
             // boundWhatIsThis.call(newThis, 'hello');
+
+            // var playObject = {
+            //     lift: 'stuff'
+            // };
+            //
+            // playObject.__proto__.cat = 'meow';
+            // console.log(playObject.lift, playObject.cat);
         },
 
         whatIsThis: function (greeting) {
