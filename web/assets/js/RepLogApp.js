@@ -1,39 +1,37 @@
 'use strict';
 
 (function (window, $) {
-    window.RepLogApp = {
-        initialize: function ($wrapper) {
-            this.$wrapper = $wrapper;
-            this.helper = new Helper($wrapper);
+    window.RepLogApp = function ($wrapper) {
+        this.$wrapper = $wrapper;
+        this.helper = new Helper($wrapper);
 
-            console.log(
+        console.log();
 
-            );
+        this.$wrapper.find('.js-delete-rep-log').on(
+            'click',
+            this.hanldeRepLogDelete.bind(this)
+        );
 
-            this.$wrapper.find('.js-delete-rep-log').on(
-                'click',
-                this.hanldeRepLogDelete.bind(this)
-            );
+        this.$wrapper.find('tbody tr').on(
+            'click',
+            this.handleRowClick.bind(this)
+        );
 
-            this.$wrapper.find('tbody tr').on(
-                'click',
-                this.handleRowClick.bind(this)
-            );
+        // console.log(this.helper, Object.keys(this.helper));
+        // console.log(Helper, Object.keys(Helper));
+        // var newThis = {cat: 'meow', dog: 'woof'};
+        // var boundWhatIsThis = this.whatIsThis.bind(this);
+        // boundWhatIsThis.call(newThis, 'hello');
 
-            // console.log(this.helper, Object.keys(this.helper));
-            // console.log(Helper, Object.keys(Helper));
-            // var newThis = {cat: 'meow', dog: 'woof'};
-            // var boundWhatIsThis = this.whatIsThis.bind(this);
-            // boundWhatIsThis.call(newThis, 'hello');
+        // var playObject = {
+        //     lift: 'stuff'
+        // };
+        //
+        // playObject.__proto__.cat = 'meow';
+        // console.log(playObject.lift, playObject.cat);
+    };
 
-            // var playObject = {
-            //     lift: 'stuff'
-            // };
-            //
-            // playObject.__proto__.cat = 'meow';
-            // console.log(playObject.lift, playObject.cat);
-        },
-
+    $.extend(window.RepLogApp.prototype, {
         whatIsThis: function (greeting) {
             console.log(this, greeting);
         },
@@ -78,7 +76,7 @@
         handleRowClick: function () {
             console.log('row clicked');
         }
-    };
+    });
 
     /**
      * A "private" object
@@ -87,13 +85,15 @@
         this.$wrapper = $wrapper;
     };
 
-    Helper.prototype.calculateTotalWeight = function () {
-        var totalWeight = 0;
+    $.extend(Helper.prototype, {
+        calculateTotalWeight: function () {
+            var totalWeight = 0;
 
-        this.$wrapper.find('tbody tr').each(function () {
-            totalWeight += $(this).data('weight')
-        });
+            this.$wrapper.find('tbody tr').each(function () {
+                totalWeight += $(this).data('weight')
+            });
 
-        return totalWeight;
-    };
+            return totalWeight;
+        }
+    });
 })(window, jQuery);
