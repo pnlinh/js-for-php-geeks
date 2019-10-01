@@ -40,9 +40,9 @@
     };
 
     $.extend(window.RepLogApp.prototype, {
-        whatIsThis: function (greeting) {
-            console.log(this, greeting);
-        },
+        // whatIsThis: function (greeting) {
+        //     console.log(this, greeting);
+        // },
 
         hanldeRepLogDelete: function (e) {
             e.preventDefault();
@@ -89,19 +89,22 @@
             e.preventDefault();
 
             var $form = $(e.currentTarget);
-            var $tbody = this.$wrapper.find('tbody');
 
             $.ajax({
-                // url: $form.attr('action'),
-                url: '/lift',
+                url: $form.data('url'),
                 method: 'POST',
                 data: $form.serialize(),
                 success: function (data) {
-                    $tbody.append(data);
+                    // todo
+                    // $tbody.append(data);
+                    console.log('success');
                 },
                 error: function (jqXHR) {
-                    $form.closest('.js-new-rep-log-form-wrapper')
-                        .html(jqXHR.responseText);
+                    // $form.closest('.js-new-rep-log-form-wrapper')
+                    //     .html(jqXHR.responseText);
+
+                    // todo
+                    console.log('error :(');
                 }
             });
         }

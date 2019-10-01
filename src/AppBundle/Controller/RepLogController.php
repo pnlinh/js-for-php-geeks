@@ -29,6 +29,8 @@ class RepLogController extends BaseController
     /**
      * @Route("/reps/{id}", name="rep_log_get")
      * @Method("GET")
+     * @param \AppBundle\Entity\RepLog $repLog
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getRepLogAction(RepLog $repLog)
     {
@@ -40,6 +42,8 @@ class RepLogController extends BaseController
     /**
      * @Route("/reps/{id}", name="rep_log_delete")
      * @Method("DELETE")
+     * @param \AppBundle\Entity\RepLog $repLog
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteRepLogAction(RepLog $repLog)
     {
@@ -54,6 +58,8 @@ class RepLogController extends BaseController
     /**
      * @Route("/reps", name="rep_log_new")
      * @Method("POST")
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function newRepLogAction(Request $request)
     {
