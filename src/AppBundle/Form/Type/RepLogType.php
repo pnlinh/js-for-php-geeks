@@ -14,6 +14,7 @@ class RepLogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->setAction('lift')
             ->add('reps', IntegerType::class)
             ->add('item', ChoiceType::class, array(
                 'choices' => RepLog::getThingsYouCanLiftChoices(),

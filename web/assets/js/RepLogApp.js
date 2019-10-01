@@ -7,14 +7,22 @@
 
         console.log();
 
-        this.$wrapper.find('.js-delete-rep-log').on(
+        this.$wrapper.on(
             'click',
+            '.js-delete-rep-log',
             this.hanldeRepLogDelete.bind(this)
         );
 
-        this.$wrapper.find('tbody tr').on(
+        this.$wrapper.on(
             'click',
+            'tbody tr',
             this.handleRowClick.bind(this)
+        );
+
+        this.$wrapper.on(
+            'submit',
+            '.js-new-rep-log-form',
+            this.handleNewFormSubmit.bind(this)
         );
 
         // console.log(this.helper, Object.keys(this.helper));
@@ -75,6 +83,27 @@
 
         handleRowClick: function () {
             console.log('row clicked');
+        },
+
+        handleNewFormSubmit: function (e) {
+            e.preventDefault();
+
+            var $form = $(e.currentTarget);
+            var $tbody = this.$wrapper.find('tbody');
+
+            $.ajax({
+                // url: $form.attr('action'),
+                url: '/lift',
+                method: 'POST',
+                data: $form.serialize(),
+                success: function (data) {
+                    $tbody.append(data);
+                },
+                error: function (jqXHR) {
+                    $form.closest('.js-new-rep-log-form-wrapper')
+                        .html(jqXHR.responseText);
+                }
+            });
         }
     });
 
