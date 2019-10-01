@@ -21,7 +21,7 @@
 
         this.$wrapper.on(
             'submit',
-            '.js-new-rep-log-form',
+            this._selecttors.newRepForm,
             this.handleNewFormSubmit.bind(this)
         );
 
@@ -43,6 +43,10 @@
         // whatIsThis: function (greeting) {
         //     console.log(this, greeting);
         // },
+
+        _selecttors: {
+            newRepForm: '.js-new-rep-log-form'
+        },
 
         hanldeRepLogDelete: function (e) {
             e.preventDefault();
@@ -90,6 +94,7 @@
 
             var $form = $(e.currentTarget);
             var formData = {};
+            var self = this;
 
             $.each($form.serializeArray(), function (key, fieldData) {
                 formData[fieldData.name] = fieldData.value;
@@ -108,9 +113,31 @@
                     // $form.closest('.js-new-rep-log-form-wrapper')
                     //     .html(jqXHR.responseText);
 
-                    // todo
-                    console.log('error :(');
+                    var errorData = JSON.parse(jqXHR.responseText);
+                    self._mapErrorsToForm(errorData);
                 }
+            });
+        },
+
+        _mapErrorsToForm: function (errorData) {
+            // reset things
+            var $form = this.$wrapper.find(this._selecttors.newRepForm);
+            $form.find('.js-field-error').remove();
+            $form.find('.form-group').removeClass('has-error');
+
+            $form.find(':input').each(function () {
+                var fieldName = $(this).attr('name');
+                var $wrapper = $(this).closest('.form-group');
+
+                if (!errorData[fieldName]) {
+                    // no error!
+                    return;
+                }
+
+                var $error = $('<span class="js-field-error help-block"></span>');
+                $error.html(errorData[fieldName]);
+                $wrapper.append($error);
+                $wrapper.addClass('has-error');
             });
         }
     });
