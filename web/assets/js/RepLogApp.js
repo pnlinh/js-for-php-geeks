@@ -1,11 +1,11 @@
 'use strict';
 
-(function (window, $) {
+(function (window, $, Routing) {
     window.RepLogApp = function ($wrapper) {
         this.$wrapper = $wrapper;
         this.helper = new Helper($wrapper);
 
-        console.log();
+        this.loadRepLogs();
 
         this.$wrapper.on(
             'click',
@@ -43,6 +43,19 @@
         // whatIsThis: function (greeting) {
         //     console.log(this, greeting);
         // },
+
+        loadRepLogs: function () {
+            var self = this;
+
+            $.ajax({
+                url: Routing.generate('rep_log_list'),
+                success: function (data) {
+                    $.each(data.items, function (key, repLog) {
+                        self._addRow(repLog);
+                    });
+                }
+            });
+        },
 
         _selecttors: {
             newRepForm: '.js-new-rep-log-form'
@@ -179,4 +192,4 @@
             return totalWeight;
         }
     });
-})(window, jQuery);
+})(window, jQuery, Routing);
