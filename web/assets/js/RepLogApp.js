@@ -49,11 +49,10 @@
 
             $.ajax({
                 url: Routing.generate('rep_log_list'),
-                success: function (data) {
-                    $.each(data.items, function (key, repLog) {
-                        self._addRow(repLog);
-                    });
-                }
+            }).then(function (data) {
+                $.each(data.items, function (key, repLog) {
+                    self._addRow(repLog);
+                });
             });
         },
 
@@ -82,12 +81,11 @@
             $.ajax({
                 url: deleteUrl,
                 method: 'DELETE',
-                success: function () {
-                    $row.fadeOut('normal', function () {
-                        $(this).remove();
-                        self.updateTotalWeightLifted();
-                    });
-                }
+            }).then(function () {
+                $row.fadeOut('normal', function () {
+                    $(this).remove();
+                    self.updateTotalWeightLifted();
+                });
             });
         },
 
@@ -113,27 +111,22 @@
                 formData[fieldData.name] = fieldData.value;
             });
 
-            $.ajax({
-                url: $form.data('url'),
-                method: 'POST',
-                data: JSON.stringify(formData),
-                success: function (data) {
-                    self._clearForm();
-                    self._addRow(data);
-                },
-                error: function (jqXHR) {
-                    var errorData = JSON.parse(jqXHR.responseText);
-                    self._mapErrorsToForm(errorData);
-                }
-            }).then(function (data) {
-                console.log('I am successful!');
-                console.log(data);
-
-                return data;
-            }).then(function (data) {
-                console.log('another handle');
-                console.log(data);
+            this._saveRepLog(formData)
+            .then(function (data) {
+                self._clearForm();
+                self._addRow(data);
+            }).catch(function (jqXHR) {
+                var errorData = JSON.parse(jqXHR.responseText);
+                self._mapErrorsToForm(errorData);
             });
+        },
+
+        _saveRepLog: function (data) {
+            return  $.ajax({
+                url: Routing.generate('rep_log_new'),
+                method: 'POST',
+                data: JSON.stringify(data),
+            })
         },
 
         _mapErrorsToForm: function (errorData) {
