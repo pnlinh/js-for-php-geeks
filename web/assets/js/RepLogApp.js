@@ -122,7 +122,7 @@
         },
 
         _saveRepLog: function (data) {
-            return  $.ajax({
+            return $.ajax({
                 url: Routing.generate('rep_log_new'),
                 method: 'POST',
                 data: JSON.stringify(data),
