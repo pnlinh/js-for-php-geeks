@@ -125,6 +125,14 @@
                     var errorData = JSON.parse(jqXHR.responseText);
                     self._mapErrorsToForm(errorData);
                 }
+            }).then(function (data) {
+                console.log('I am successful!');
+                console.log(data);
+
+                return data;
+            }).then(function (data) {
+                console.log('another handle');
+                console.log(data);
             });
         },
 
